@@ -1,34 +1,63 @@
-function add(a, b) {
-    return a + b
-}
+class Calculator {
+    constructor(display) {
+        this.display = display;
+        this.clear() 
+    }
 
-function substract(a, b) {
-    return a - b
-}
+    updateDisplay() {
+        let toDisplay
+        switch(this.currentPos) {
+            case "nb1":
+                toDisplay = this.nb1;
+                break;
+            case "nb2":
+                toDisplay = this.nb2;
+                break;
+            case "operator":
+                toDisplay = this.operator;
+                break;
+        }
+        this.display.textContent = toDisplay;
+    }
 
-function multiply(a, b) {
-    return a * b
-}
+    clear() {
+        this.nb1 = "";
+        this.nb2 = "";
+        this.operator = "";
+        this.currentPos = "nb1";
+        this.updateDisplay();
+    }
 
-function divide(a, b) {
-    if(b == 0) return "Divsion by Zero"
-    return Math.round((a / b)*100) / 100 // Keep last two decimals
-}
+    add(a, b) {
+        return a + b
+    }
 
-function operate(operator, a, b) {
-    switch(operator) {
-        case "+":
-            add(a, b)
-            break;
-        case "-":
-            substract(a, b)
-            break;
-        case "*":
-            multiply(a, b)
-            break;
-        case "/":
-            divide(a, b)
-            break;
+    substract(a, b) {
+        return a - b
+    }
+
+    multiply(a, b) {
+        return a * b
+    }
+
+    divide(a, b) {
+        if(b == 0) return "Divsion by Zero"
+        return Math.round((a / b)*100) / 100 // Keep last two decimals
+    }
+
+    operate() {
+        switch(this.operator) {
+            case "+":
+                return add(this.nb1, this.nb2)
+            case "-":
+                return substract(this.nb1, this.nb2)
+            case "*":
+                return multiply(this.nb1, this.nb2)
+            case "/":
+                return divide(this.nb1, this.nb2)
+        }
     }
 }
 
+const display = document.querySelector("#display")
+const calculator = new Calculator(display)
