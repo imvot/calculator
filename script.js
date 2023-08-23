@@ -30,11 +30,11 @@ class Calculator {
     }
 
     addNb() {
-        const btn = this
+        const number = this.getAttribute("data-number")
         if(self.currentPos == "nb1") {
-            self.nb1 += btn.getAttribute("data-number")
+            self.nb1 += number
         } else if(self.currentPos == "nb2") {
-            self.nb2 += btn.getAttribute("data-number")
+            self.nb2 += number
         }
         self.updateDisplay()
     }
