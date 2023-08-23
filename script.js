@@ -1,6 +1,7 @@
 class Calculator {
     constructor(display) {
         this.display = display;
+        self = this;
         this.clear() 
     }
 
@@ -28,13 +29,14 @@ class Calculator {
         this.updateDisplay();
     }
 
-    addNb(e) {
-        if(this.currentPos == "nb1") {
-            this.nb1 += e.target.getAttribute("data-number")
-        } else if(this.currentPos == "nb2") {
-            this.nb2 += e.target.getAttribute("data-number")
+    addNb() {
+        const btn = this
+        if(self.currentPos == "nb1") {
+            self.nb1 += btn.getAttribute("data-number")
+        } else if(self.currentPos == "nb2") {
+            self.nb2 += btn.getAttribute("data-number")
         }
-        this.updateDisplay()
+        self.updateDisplay()
     }
 
     add(a, b) {
@@ -70,3 +72,6 @@ class Calculator {
 
 const display = document.querySelector("#display")
 const calculator = new Calculator(display)
+
+const nbBtns = [...document.querySelectorAll("button[data-number]")]
+nbBtns.forEach(btn => btn.addEventListener("click", calculator.addNb))
