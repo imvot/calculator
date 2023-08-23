@@ -28,6 +28,15 @@ class Calculator {
         this.updateDisplay();
     }
 
+    addNb(e) {
+        if(this.currentPos == "nb1") {
+            this.nb1 += e.target.getAttribute("data-number")
+        } else if(this.currentPos == "nb2") {
+            this.nb2 += e.target.getAttribute("data-number")
+        }
+        this.updateDisplay()
+    }
+
     add(a, b) {
         return a + b
     }
