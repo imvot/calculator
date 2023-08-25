@@ -35,9 +35,13 @@ class Calculator {
         if(self.currentPos == "operator") self.currentPos = "nb2"
 
         if(self.currentPos == "nb1") {
-            self.nb1 += number
+            if(!self.nb1.endsWith("%")) {
+                self.nb1 += number
+            }
         } else if(self.currentPos == "nb2") {
-            self.nb2 += number
+            if(!self.nb2.endsWith("%")) {
+                self.nb2 += number
+            }
         }
         self.updateDisplay()
     }
@@ -71,6 +75,9 @@ class Calculator {
             case "symbol":
                 self.inverseSymbol()
                 break;
+            case "percentage":
+                self.addPercentage()
+                break;
             case "float":
                 self.addDecimal()
                 break;
@@ -89,6 +96,25 @@ class Calculator {
                 this.nb2 = this.nb2 + "."
             }
         }
+    }
+
+    addPercentage() {
+        if(this.currentPos == "nb1") {
+            if(!this.nb1.includes("%")) {
+                this.nb1 = this.nb1 + "%"
+            }
+        } else if(this.currentPos == "nb2") {
+            if(!this.nb2.includes("%")) {
+                this.nb2 = this.nb2 + "%"
+            }
+        }
+    }
+
+    replacePercentage(nb) {
+        if(nb.endsWith("%")) {
+            return +(nb.replace("%", "")) / 100
+        }
+        return nb
     }
             
     inverseSymbol() {
@@ -119,6 +145,8 @@ class Calculator {
     operate() {
         if(this.nb1 == ".") this.nb1 = 0
         if(this.nb2 == ".") this.nb2 = 0
+        this.nb1 = this.replacePercentage(this.nb1)
+        this.nb2 = this.replacePercentage(this.nb2)
         switch(this.operator) {
             case "+":
                 return this.add(this.nb1, this.nb2)
