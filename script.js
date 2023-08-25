@@ -65,9 +65,13 @@ class Calculator {
     addAction() {
         const action = this.getAttribute("data-action")
         switch(action) {
+            case "clear":
+                self.clear()
+                break;
             case "float":
                 self.addDecimal()
                 break;
+
         }
         self.updateDisplay()
     }
