@@ -54,7 +54,11 @@ class Calculator {
             self.nb2 = "";
             self.currentPos = "nb1"
             self.updateDisplay()
-            self.currentPos = "nb2"
+            if(self.nb1 == "Division by Zero") {
+                self.nb1 = "";
+            } else {
+                self.currentPos = "nb2"
+            }
         }
     }
 
@@ -71,7 +75,7 @@ class Calculator {
     }
 
     divide(a, b) {
-        if(b == 0) return "Divsion by Zero"
+        if(b == 0) return "Division by Zero"
         return Math.round((+a / +b)*100) / 100 // Keep last two decimals
     }
 
