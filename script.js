@@ -62,6 +62,28 @@ class Calculator {
         }
     }
 
+    addAction() {
+        const action = this.getAttribute("data-action")
+        switch(action) {
+            case "float":
+                self.addDecimal()
+                break;
+        }
+        self.updateDisplay()
+    }
+
+    addDecimal() {
+        if(this.currentPos == "nb1") {
+            if(!this.nb1.includes(".")) {
+                this.nb1 = this.nb1 + "."
+            }
+        } else if(this.currentPos == "nb2") {
+            if(!this.nb2.includes(".")) {
+                this.nb2 = this.nb2 + "."
+            }
+        }
+    }
+
     add(a, b) {
         return +a + +b
     }
@@ -80,6 +102,8 @@ class Calculator {
     }
 
     operate() {
+        if(this.nb1 == ".") this.nb1 = 0
+        if(this.nb2 == ".") this.nb2 = 0
         switch(this.operator) {
             case "+":
                 return this.add(this.nb1, this.nb2)
@@ -101,3 +125,6 @@ nbBtns.forEach(btn => btn.addEventListener("click", calculator.addNb))
 
 const operatorBtns = [...document.querySelectorAll("button[data-operator]")]
 operatorBtns.forEach(btn => btn.addEventListener("click", calculator.addOperator))
+
+const actionBtns = [...document.querySelectorAll("button[data-action]")]
+actionBtns.forEach(btn => btn.addEventListener("click", calculator.addAction))
