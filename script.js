@@ -68,6 +68,9 @@ class Calculator {
             case "clear":
                 self.clear()
                 break;
+            case "symbol":
+                self.inverseSymbol()
+                break;
             case "float":
                 self.addDecimal()
                 break;
@@ -85,6 +88,14 @@ class Calculator {
             if(!this.nb2.includes(".")) {
                 this.nb2 = this.nb2 + "."
             }
+        }
+    }
+            
+    inverseSymbol() {
+        if(this.currentPos == "nb1") {
+            this.nb1 *= -1;
+        } else if(this.currentPos == "nb2") {
+            this.nb2 *= -1;
         }
     }
 
