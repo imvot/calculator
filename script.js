@@ -7,15 +7,12 @@ class Calculator {
 
     updateDisplay() {
         let toDisplay
-        switch(this.currentPos) {
+        switch(this.currentNb) {
             case "nb1":
                 toDisplay = this.nb1;
                 break;
             case "nb2":
                 toDisplay = this.nb2;
-                break;
-            case "operator":
-                toDisplay = this.operator;
                 break;
         }
         this.display.textContent = toDisplay;
@@ -25,45 +22,43 @@ class Calculator {
         this.nb1 = "";
         this.nb2 = "";
         this.operator = "";
-        this.currentPos = "nb1";
+        this.currentNb = "nb1";
         this.updateDisplay();
     }
 
     addNb() {
         const number = this.getAttribute("data-number")
 
-        if(self.currentPos == "operator") self.currentPos = "nb2"
-
-        if(self.currentPos == "nb1") {
-            if(!self.nb1.endsWith("%")) {
-                self.nb1 += number
-            }
-        } else if(self.currentPos == "nb2") {
-            if(!self.nb2.endsWith("%")) {
-                self.nb2 += number
-            }
+        if(self.operator) {
+            self.currentNb = "nb2";
         }
+
+        if(!self[self.currentNb].endsWith("%")) {
+            self[self.currentNb] += number;
+        }
+        
         self.updateDisplay()
     }
 
     addOperator() {
         const operator = this.getAttribute("data-operator")
-        if(self.nb1 && operator != "=") {
+
+        if(operator != "=" && self.nb1) {
             self.operator = operator;
-            self.currentPos = "operator";
-            self.updateDisplay()
         }
+
         if(self.nb1 && self.nb2) {
-            self.nb1 = self.operate();
+            self.nb1 = self.operate().toString();
             self.nb2 = "";
-            self.currentPos = "nb1"
-            self.updateDisplay()
-            if(self.nb1 == "Division by Zero") {
-                self.nb1 = "";
+            if(operator == "=") {
+                self.currentNb = "nb1";
             } else {
-                self.currentPos = "nb2"
+                self.currentNb = "nb2";
             }
         }
+
+        self.updateDisplay();
+
     }
 
     addAction() {
@@ -90,26 +85,14 @@ class Calculator {
     }
 
     addDecimal() {
-        if(this.currentPos == "nb1") {
-            if(!this.nb1.includes(".")) {
-                this.nb1 = this.nb1 + "."
-            }
-        } else if(this.currentPos == "nb2") {
-            if(!this.nb2.includes(".")) {
-                this.nb2 = this.nb2 + "."
-            }
+        if(!this[this.currentNb].includes(".")) {
+            this[this.currentNb] = this[this.currentNb] + ".";
         }
     }
 
     addPercentage() {
-        if(this.currentPos == "nb1") {
-            if(!this.nb1.includes("%")) {
-                this.nb1 = this.nb1 + "%"
-            }
-        } else if(this.currentPos == "nb2") {
-            if(!this.nb2.includes("%")) {
-                this.nb2 = this.nb2 + "%"
-            }
+        if(!this[this.currentNb].includes("%")) {
+            this[this.currentNb] = this[this.currentNb] + "%";
         }
     }
 
@@ -121,21 +104,11 @@ class Calculator {
     }
             
     inverseSymbol() {
-        if(this.currentPos == "nb1") {
-            this.nb1 *= -1;
-        } else if(this.currentPos == "nb2") {
-            this.nb2 *= -1;
-        }
+        this[this.currentNb] *= -1;
     }
 
     removeLastChar() {
-        if(this.currentPos == "nb1") {
-            this.nb1 = this.nb1.slice(0, -1);
-        } else if(this.currentPos == "nb2") {
-            this.nb2 = this.nb2.slice(0, -1);
-        } else {
-            this.operator = ""
-        }
+        this[this.currentNb] = this[this.currentNb].slice(0, -1);
     }
 
     add(a, b) {
