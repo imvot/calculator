@@ -149,6 +149,8 @@ class Calculator {
 const display = document.querySelector("#display")
 const calculator = new Calculator(display)
 
+window.addEventListener("keydown", e => document.querySelector(`button[data-key~="${e.key}"]`).click());
+
 const nbBtns = [...document.querySelectorAll("button[data-number]")]
 nbBtns.forEach(btn => btn.addEventListener("click", calculator.addNb))
 
