@@ -78,6 +78,9 @@ class Calculator {
             case "percentage":
                 self.addPercentage()
                 break;
+            case "backspace":
+                self.removeLastChar()
+                break;
             case "float":
                 self.addDecimal()
                 break;
@@ -122,6 +125,16 @@ class Calculator {
             this.nb1 *= -1;
         } else if(this.currentPos == "nb2") {
             this.nb2 *= -1;
+        }
+    }
+
+    removeLastChar() {
+        if(this.currentPos == "nb1") {
+            this.nb1 = this.nb1.slice(0, -1);
+        } else if(this.currentPos == "nb2") {
+            this.nb2 = this.nb2.slice(0, -1);
+        } else {
+            this.operator = ""
         }
     }
 
