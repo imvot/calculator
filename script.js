@@ -50,15 +50,13 @@ class Calculator {
         if(self.nb1 && self.nb2) {
             self.nb1 = self.operate().toString();
             self.nb2 = "";
-            if(operator == "=") {
-                self.currentNb = "nb1";
-            } else {
-                self.currentNb = "nb2";
-            }
+            self.currentNb = "nb1";
+            self.updateDisplay();
+            if(self.nb1 == "Division by Zero") {
+                self.nb1 = "";
+                self.operator = "";
+            } 
         }
-
-        self.updateDisplay();
-
     }
 
     addAction() {
