@@ -54,8 +54,8 @@ class Calculator {
             self.updateDisplay();
             if(self.nb1 == "Division by Zero") {
                 self.nb1 = "";
-                self.operator = "";
             } 
+            if(operator == "=") self.operator = "";
         }
     }
 
