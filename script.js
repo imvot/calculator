@@ -103,6 +103,7 @@ class Calculator {
             
     inverseSymbol() {
         this[this.currentNb] *= -1;
+        this[this.currentNb] = this[this.currentNb].toString();
     }
 
     removeLastChar() {
